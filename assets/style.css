@@ -379,3 +379,6 @@ body[data-page=cie] .role-chisi{border-top:3px solid #173d32}
 .cie-contact{margin:36px 0 0;font-size:17px;color:var(--forest-ink)}
 .cie-contact a{color:var(--forest);font-weight:700;border-bottom:1px solid var(--brass)}
 .footer-grid a[href^="mailto"]{word-break:break-all}
+
+/* Line-reveal masks: leave room for descenders (g, p, y) and accents so nothing is clipped */
+h1 [class*="-mask"],h2 [class*="-mask"]{padding:.08em 0 .2em;margin:-.08em 0 -.2em}
