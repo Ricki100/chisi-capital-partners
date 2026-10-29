@@ -47,7 +47,7 @@ def hero(page, eyebrow, title_html, lead='', actions='', bottom=''):
     return f'''<section class="hero" data-hero>
 <div class="hero-media" data-hero-media>{img(name, alt, 'hero-img', eager=True)}<div class="hero-shade" aria-hidden="true"></div></div>
 <div class="wrap hero-inner" data-hero-content>
-{f'<p class="eyebrow light" data-hero-fade>{eyebrow}</p>' if eyebrow else ''}
+
 <h1 class="hero-title" data-hero-title>{title_html}</h1>
 {f'<p class="hero-lead" data-hero-fade>{lead}</p>' if lead else ''}
 {f'<div class="actions" data-hero-fade>{actions}</div>' if actions else ''}
