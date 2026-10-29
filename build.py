@@ -13,7 +13,7 @@ def esc(s):
     return html.escape(s)
 
 
-nav = [('about', 'About'), ('services', 'Services'), ('sectors', 'Sectors'), ('approach', 'Our approach')]
+nav = [('about', 'About'), ('services', 'Services'), ('sectors', 'Sectors'), ('approach', 'Our approach'), ('cie', 'CIE')]
 ARROW = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>'
 
 
@@ -37,6 +37,7 @@ HEROES = {
     'sectors': ('hero-sectors', 'A farmer and an adviser walking through a commercial farm with a processing facility behind'),
     'approach': ('hero-approach', 'A business partner and a site engineer shaking hands on a project site at sunrise'),
     'contact': ('hero-contact', 'An executive welcoming a visitor with a handshake in a bright office'),
+    'cie': ('hero-cie', 'Young entrepreneurs at a workshop listening to a founder present her product idea'),
     'legal': ('hero-legal', 'A business leader standing at an office window above the city'),
 }
 
@@ -110,7 +111,7 @@ home += f'''<div id="main-content"></div>
 <section class="services section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">What we do</p><h2 class="split" data-split>Clarity at every stage.<br><em>Purpose in every structure.</em></h2></div><a class="text-link" href="services.html">All services {ARROW}</a></div><div class="service-list">{rows}</div></div></section>
 <section class="sectors-home" data-sectors><div class="sectors-pin"><div class="wrap sectors-head"><div><p class="eyebrow">Where we focus</p><h2 class="split" data-split>Real enterprise.<br><em>Tangible value.</em></h2></div><div class="sectors-intro"><p>Our attention is on productive sectors: enterprises that strengthen industrial capabilities, add value and create lasting economic contribution.</p>{button('Explore our sectors', 'sectors.html', 'outline')}</div></div><div class="sector-track" data-track>{cards}</div><div class="wrap sector-progress" aria-hidden="true"><span data-track-progress></span></div></div></section>
 <section class="approach-band" data-process><div class="approach-media" data-parallax>{img('analyst', 'An analyst reviewing a financial model across two monitors')}</div><div class="wrap approach-inner"><div class="section-heading"><div><p class="eyebrow light">The way forward</p><h2 class="split" data-split>Ambition, meet <em>discipline.</em></h2></div><a class="text-link light" href="approach.html">Our full approach {ARROW}</a></div><div class="process"><div class="process-line" aria-hidden="true"><span data-process-line></span></div>{process}</div><p class="qualification">Every opportunity is assessed on its own merits, subject to due diligence and applicable approvals.</p></div></section>
-<section class="section wrap collaboration"><div class="collab-copy"><p class="eyebrow">Connected expertise</p><h2 class="split" data-split>Entrepreneurial ideas.<br><em>Commercial possibilities.</em></h2><p class="large reveal">We collaborate with the Centre for Impactful Entrepreneurs (CIE), connecting entrepreneurial development and incubation with commercial assessment, project preparation and investment structuring.</p><a class="text-link reveal" href="approach.html#collaboration">Understand our collaboration {ARROW}</a></div><figure class="collab-media reveal-img" data-parallax>{img('entrepreneur', 'A young entrepreneur presenting a business plan to a mentor at an incubation hub')}</figure></section>'''
+<section class="section wrap collaboration"><div class="collab-copy"><p class="eyebrow">Connected expertise</p><h2 class="split" data-split>Entrepreneurial ideas.<br><em>Commercial possibilities.</em></h2><p class="large reveal">We collaborate with the Centre for Impactful Entrepreneurs (CIE), connecting entrepreneurial development and incubation with commercial assessment, project preparation and investment structuring.</p><a class="text-link reveal" href="cie.html">Meet our sister organisation, CIE {ARROW}</a></div><figure class="collab-media reveal-img" data-parallax>{img('entrepreneur', 'A young entrepreneur presenting a business plan to a mentor at an incubation hub')}</figure></section>'''
 shell('index', 'Chisi Capital Partners | Project Development & Investment Structuring', 'Project development, investment structuring and capital mobilisation across Zimbabwe and Africa.', home + cta())
 
 inner_ctas = {'about': ('Discuss an opportunity', 'contact.html'), 'services': ('Discuss a project', 'contact.html'), 'sectors': ('Submit a sector opportunity', 'contact.html'), 'approach': ('Start a conversation', 'contact.html')}
@@ -178,6 +179,46 @@ contact_body = hero('contact', 'Start a conversation', 'Let’s discuss <em>the 
 contact_body += f'''<div id="main-content"></div><section class="wrap contact-grid section"><aside class="reveal"><p class="eyebrow">Speak with us</p><a class="contact-phone" href="tel:+263773588945">077 358 8945</a><h2>Visit our office</h2><p>64 Cork Road, Avondale<br>Harare, Zimbabwe</p><a class="text-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=64+Cork+Road+Avondale+Harare">Get directions {ARROW}</a><div class="contact-note"><h3>A considered first step.</h3><p>An initial discussion does not constitute acceptance of a mandate or a commitment to provide financing.</p></div></aside><div class="reveal"><h2>Prepare your project enquiry</h2><p class="form-intro">Use this form to download a brief for your records. To discuss it with our team, call the number alongside. Online submission is not yet available.</p><form id="enquiry-form">{fields}</form></div></section>'''
 shell('contact', 'Contact Chisi Capital Partners | Discuss a Project', 'Discuss project development, investment structuring or a strategic partnership with Chisi Capital Partners.', contact_body)
 
+
+# ---------- CIE: sister organisation ----------
+cie_programmes = [
+    ('Enterprise development', 'Identifying promising ideas and supporting early commercial concept development.'),
+    ('Training & incubation', 'Building entrepreneurship capabilities through training, mentorship and incubation initiatives.'),
+    ('Industrial project origination', 'Finding productive-sector opportunities that address market gaps and strengthen local production.'),
+    ('Industry engagement', 'Connecting entrepreneurs, businesses and stakeholders in practical dialogue about enterprise growth.'),
+    ('Partnerships & access', 'Building relationships that improve access to expertise, markets and potential sources of finance.'),
+    ('Forums & roadshows', 'Bringing ideas, businesses and industry together through workshops, forums and project showcases.'),
+]
+cie_steps = [
+    ('Share your idea', 'Tell CIE what you want to build and the challenge or opportunity it addresses.'),
+    ('Initial review', 'Suitable submissions are assessed against market demand, feasibility, impact and readiness.'),
+    ('Identify the right support', 'Next steps may include training, mentorship, incubation, further preparation or a partner referral.'),
+    ('Develop the opportunity', 'Promising concepts may progress towards stronger business plans and investment preparation, subject to further assessment.'),
+]
+cie_focus = ['Manufacturing', 'Agro-processing', 'Mineral beneficiation', 'Packaging & industrial inputs', 'Import substitution', 'Export-oriented enterprises']
+programme_html = ''.join(f'<div class="pillar reveal"><h3>{t}</h3><p>{d}</p></div>' for t, d in cie_programmes)
+cie_process = ''.join(f'<div class="step" data-step><span class="step-dot" aria-hidden="true"></span><span class="number">0{i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(cie_steps, 1))
+focus_html = ''.join(f'<li class="reveal">{f}</li>' for f in cie_focus)
+cie_body = hero('cie', 'Our sister organisation', 'Turning promising ideas into <em>productive enterprises.</em>',
+                'The Centre for Impactful Entrepreneurs (CIE) mobilises entrepreneurial ideas, supports enterprise development and connects people with the knowledge, partnerships and opportunities needed to build commercially viable businesses in Zimbabwe.',
+                button('How CIE and Chisi work together', '#together', 'light') + button('Discuss an idea', 'contact.html', 'ghost'), plain_strip)
+cie_body += f"""<div id="main-content"></div>
+<section class="section wrap cie-intro">
+<div class="cie-logo-panel reveal"><img src="assets/logo-cie.png" alt="Centre for Impactful Entrepreneurs: ideas, skills, industry, investment, impact" width="760" height="296" loading="lazy"></div>
+<div><p class="eyebrow">Who CIE is</p><h2 class="split" data-split>A platform for <em>enterprise development.</em></h2><p class="large reveal">CIE is an enterprise development and industrialisation initiative in Zimbabwe. It brings together entrepreneurs, industry, financial institutions, investors, development finance institutions, technical specialists and strategic partners to support enterprise growth, local manufacturing, value addition and sustainable economic development.</p>
+<div class="mv"><div class="reveal"><h3>Mission</h3><p>To mobilise, nurture and empower entrepreneurs by creating pathways through which business ideas can be developed into viable enterprises, industrial projects and sustainable economic opportunities.</p></div><div class="reveal"><h3>Vision</h3><p>To become a recognised platform for entrepreneurship, enterprise development and industrial project origination, contributing to a more productive, innovative and industrialised Zimbabwe.</p></div></div></div>
+</section>
+<section class="services section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">What CIE does</p><h2 class="split" data-split>Practical support for <em>enterprise development.</em></h2></div></div><div class="pillars">{programme_html}</div></div></section>
+<section class="approach-band" data-process><div class="approach-media" data-parallax>{img('cie-workshop', 'An entrepreneur presenting product samples to a group taking notes')}</div><div class="wrap approach-inner"><div class="section-heading"><div><p class="eyebrow light">How ideas progress</p><h2 class="split" data-split>From an idea to a <em>stronger business opportunity.</em></h2></div></div><div class="process"><div class="process-line" aria-hidden="true"><span data-process-line></span></div>{cie_process}</div><p class="qualification">A registered company or completed business plan is not required for an initial submission. Submitting an idea does not guarantee programme admission, funding or investment.</p></div></section>
+<section class="section wrap cie-focus"><div><p class="eyebrow">Focus areas</p><h2 class="split" data-split>Supporting Zimbabwe’s <em>productive economy.</em></h2><p class="reveal">CIE prioritises commercially promising opportunities that contribute to domestic value addition, industrialisation, import substitution and regional trade. Sector relevance alone does not determine acceptance: projects need market demand, credible operating models and feasibility.</p></div><ul class="focus-list">{focus_html}</ul></section>
+<section class="section together" id="together"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">CIE and Chisi</p><h2 class="split" data-split>Complementary roles. <em>Distinct mandates.</em></h2></div></div>
+<div class="roles"><div class="role reveal"><img class="role-logo" src="assets/logo-cie.png" alt="CIE" width="760" height="296" loading="lazy"><h3>Centre for Impactful Entrepreneurs</h3><ul><li>Outreach and idea mobilisation</li><li>Entrepreneurship development and training</li><li>Mentorship and incubation</li><li>Identifying promising projects</li></ul></div>
+<div class="role-link reveal" aria-hidden="true"><span></span>{ARROW}<span></span></div>
+<div class="role reveal"><img class="role-logo" src="assets/logo-color.png" alt="Chisi Capital Partners" width="760" height="249" loading="lazy"><h3>Chisi Capital Partners</h3><ul><li>Commercial assessment</li><li>Project preparation</li><li>Investment structuring</li><li>Engagement with potential capital providers, where appropriate</li></ul></div></div>
+<p class="note reveal">The two organisations have distinct mandates. Any referral from CIE to Chisi Capital Partners, or any next step, remains subject to assessment and applicable requirements.</p></div></section>"""
+cie_cta = '<section class="cta" data-cta><div class="cta-media" data-parallax>' + img('cie-cta', 'A founder presenting her product idea to fellow entrepreneurs', 'cta-img') + '</div><div class="wrap cta-inner"><p class="eyebrow light">Whether you are at idea stage or already operating</p><h2 class="split" data-split>Have a business idea<br><em>worth exploring?</em></h2>' + button('Start a conversation', 'contact.html', 'light') + '</div></section>'
+shell('cie', 'Centre for Impactful Entrepreneurs (CIE) | Chisi Capital Partners', 'CIE, the sister organisation of Chisi Capital Partners, mobilises entrepreneurial ideas and supports enterprise development and incubation in Zimbabwe.', cie_body + cie_cta)
+
 legal = {
     'privacy-policy': ('Privacy notice', 'This static website does not send form entries to Chisi Capital Partners. The enquiry form creates a text file locally in your browser only when you choose to download it. Entries are not saved by this website.', 'If you telephone us, share only the information needed to discuss your enquiry. For questions about information you share directly, contact Chisi Capital Partners on 077 358 8945. Hosting providers may process technical request data to deliver the website. Fonts are loaded from Google Fonts; your browser connects to Google to request the font stylesheet and font files. A fuller privacy policy must be established before online enquiry collection is enabled.'),
     'cookie-policy': ('Cookies and local storage', 'This website does not intentionally set cookies, use analytics or advertising trackers, or store form data in browser storage.', 'The hosting platform may use technologies required to deliver and protect the website. External map links open Google Maps, which operates under its own policies.'),
@@ -188,4 +229,4 @@ for slug, (title, p1, p2) in legal.items():
 
 credits = hero('legal', 'Imagery', 'Imagery on this website', 'How the photographs on this website were made.', '', plain_strip) + '''<div id="main-content"></div><section class="wrap credits section"><p class="large">The photographs on this website are illustrative images created with Magnific AI and optimised as WebP files for fast loading.</p><p>They represent the people, places and sectors Chisi Capital Partners works with. The people shown are not Chisi Capital Partners staff, clients or partners, and the scenes do not depict specific Chisi projects.</p><p>Last updated: 29 October 2026.</p></section>'''
 shell('photo-credits', 'Imagery | Chisi Capital Partners', 'Information about the illustrative imagery used on this website.', credits)
-print('Generated ten static pages.')
+print('Generated eleven static pages.')

@@ -312,3 +312,42 @@ textarea{resize:vertical}
 .article-copy p+p{margin-top:-6px}
 @media(min-width:641px){.hero-title em{white-space:nowrap}}
 .brand{width:204px}.footer-logo{width:250px}@media(max-width:640px){.brand{width:160px}}
+
+/* CIE page */
+.cie-intro{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,110px);align-items:start}
+.cie-logo-panel{background:var(--paper);aspect-ratio:1/1;display:grid;place-items:center;padding:12%;position:sticky;top:120px}
+.cie-logo-panel img{width:100%;height:auto}
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:44px;padding-top:36px;border-top:1px solid var(--line)}
+.mv h3{font-size:18px;margin-bottom:10px;color:var(--forest)}
+.mv p{margin:0;font-size:15px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #cfd6cf;border-left:1px solid #cfd6cf}
+.pillar{padding:36px 32px 40px;border-right:1px solid #cfd6cf;border-bottom:1px solid #cfd6cf;position:relative;transition:background .5s var(--ease-out)}
+.pillar::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--brass);transition:width .7s var(--ease-out)}
+.pillar:hover{background:#fff}.pillar:hover::before{width:100%}
+.pillar h3{font-size:clamp(20px,1.7vw,24px);margin-bottom:12px}
+.pillar p{margin:0;font-size:15px}
+.cie-focus{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,110px);align-items:center}
+.focus-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.focus-list li{display:flex;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);font-size:clamp(20px,1.8vw,26px);font-weight:700;letter-spacing:-.02em;color:var(--forest-ink)}
+.focus-list li::before{content:"";width:8px;height:8px;background:var(--brass);transform:rotate(45deg);flex:none}
+.together{background:var(--paper)}
+.roles{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(20px,3vw,40px);align-items:stretch}
+.role{background:#fff;padding:clamp(28px,3.5vw,48px)}
+.role-logo{height:64px;width:auto;margin-bottom:28px}
+.role h3{font-size:22px;margin-bottom:18px}
+.role ul{list-style:none;margin:0;padding:0}
+.role li{padding:12px 0;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+.role-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--brass)}
+.role-link span{width:1px;flex:1;background:var(--brass);opacity:.5}
+.role-link .arrow{width:22px;height:22px;transform:rotate(45deg)}
+.together .note{margin:36px 0 0;font-size:14px;max-width:760px}
+.desktop-nav{gap:30px}
+@media(max-width:960px){
+  .cie-intro,.cie-focus{grid-template-columns:1fr}
+  .cie-logo-panel{position:static;aspect-ratio:16/9;max-width:560px;padding:8%}
+  .pillars{grid-template-columns:1fr 1fr}
+  .roles{grid-template-columns:1fr}
+  .role-link{flex-direction:row;height:40px}.role-link span{height:1px;width:auto}
+  .role-link .arrow{transform:rotate(135deg)}
+}
+@media(max-width:640px){.pillars{grid-template-columns:1fr}.mv{grid-template-columns:1fr}}
