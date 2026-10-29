@@ -47,7 +47,7 @@ def hero(page, eyebrow, title_html, lead='', actions='', bottom=''):
     return f'''<section class="hero" data-hero>
 <div class="hero-media" data-hero-media>{img(name, alt, 'hero-img', eager=True)}<div class="hero-shade" aria-hidden="true"></div></div>
 <div class="wrap hero-inner" data-hero-content>
-<p class="eyebrow light" data-hero-fade>{eyebrow}</p>
+{f'<p class="eyebrow light" data-hero-fade>{eyebrow}</p>' if eyebrow else ''}
 <h1 class="hero-title" data-hero-title>{title_html}</h1>
 {f'<p class="hero-lead" data-hero-fade>{lead}</p>' if lead else ''}
 {f'<div class="actions" data-hero-fade>{actions}</div>' if actions else ''}
@@ -64,7 +64,7 @@ def shell(slug, title, desc, body):
     links = ''.join(f'<a href="{link(s)}" ' + ('aria-current="page"' if slug == s else '') + f'>{n}</a>' for s, n in nav)
     mobile_links = ''.join(f'<a href="{link(s)}"><span>{n}</span></a>' for s, n in nav + [('contact', 'Contact')])
     cie_contact = '<p class="footer-sub">CIE enquiries</p><a href="mailto:info@cie.co.zw">info@cie.co.zw</a>' if slug == 'cie' else ''
-    footer_brand = ('<img class="footer-logo footer-logo-cie" src="assets/logo-cie-light.png" alt="Centre for Impactful Entrepreneurs" width="760" height="298" loading="lazy"><p class="footer-line">A sister organisation of<br>Chisi Capital Partners.</p>'
+    footer_brand = ('<img class="footer-logo footer-logo-cie" src="assets/logo-cie-light.png" alt="Centre for Impactful Entrepreneurs" width="760" height="298" loading="lazy">'
                     if slug == 'cie' else
                     '<img class="footer-logo" src="assets/logo-light.png" alt="Chisi Capital Partners" width="760" height="249" loading="lazy"><p class="footer-line">Rooted in heritage.<br>Building enduring value.</p>')
     footer = f'''<footer class="footer"><div class="wrap footer-grid"><div class="footer-brand">{footer_brand}</div><div><p class="eyebrow">Explore</p>{links}</div><div><p class="eyebrow">Start a conversation</p><a href="tel:+263773588945">077 358 8945</a><a href="mailto:info@chisicapitalpartners.co.zw">info@chisicapitalpartners.co.zw</a>{cie_contact}<p>64 Cork Road, Avondale<br>Harare, Zimbabwe</p><a class="text-link light" href="contact.html">Discuss a project {ARROW}</a></div></div><div class="wrap footer-bottom"><span>© 2026 Chisi Capital Partners</span><div><a href="privacy-policy.html">Privacy</a><a href="cookie-policy.html">Cookies</a><a href="terms.html">Website terms</a><a href="photo-credits.html">Imagery</a></div></div></footer>'''
@@ -116,7 +116,7 @@ home += f'''<div id="main-content"></div>
 <section class="services section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">What we do</p><h2 class="split" data-split>Clarity at every stage.<br><em>Purpose in every structure.</em></h2></div><a class="text-link" href="services.html">All services {ARROW}</a></div><div class="service-list">{rows}</div></div></section>
 <section class="sectors-home" data-sectors><div class="sectors-pin"><div class="wrap sectors-head"><div><p class="eyebrow">Where we focus</p><h2 class="split" data-split>Real enterprise.<br><em>Tangible value.</em></h2></div><div class="sectors-intro"><p>Our attention is on productive sectors: enterprises that strengthen industrial capabilities, add value and create lasting economic contribution.</p>{button('Explore our sectors', 'sectors.html', 'outline')}</div></div><div class="sector-track" data-track>{cards}</div><div class="wrap sector-progress" aria-hidden="true"><span data-track-progress></span></div></div></section>
 <section class="approach-band" data-process><div class="approach-media" data-parallax>{img('analyst', 'An analyst reviewing a financial model across two monitors')}</div><div class="wrap approach-inner"><div class="section-heading"><div><p class="eyebrow light">The way forward</p><h2 class="split" data-split>Ambition, meet <em>discipline.</em></h2></div><a class="text-link light" href="approach.html">Our full approach {ARROW}</a></div><div class="process"><div class="process-line" aria-hidden="true"><span data-process-line></span></div>{process}</div><p class="qualification">Every opportunity is assessed on its own merits, subject to due diligence and applicable approvals.</p></div></section>
-<section class="section wrap collaboration"><div class="collab-copy"><p class="eyebrow">Connected expertise</p><h2 class="split" data-split>Entrepreneurial ideas.<br><em>Commercial possibilities.</em></h2><p class="large reveal">We collaborate with the Centre for Impactful Entrepreneurs (CIE), connecting entrepreneurial development and incubation with commercial assessment, project preparation and investment structuring.</p><a class="text-link reveal" href="cie.html">Meet our sister organisation, CIE {ARROW}</a></div><figure class="collab-media reveal-img" data-parallax>{img('entrepreneur', 'A young entrepreneur presenting a business plan to a mentor at an incubation hub')}</figure></section>'''
+<section class="section wrap collaboration"><div class="collab-copy"><p class="eyebrow">Connected expertise</p><h2 class="split" data-split>Entrepreneurial ideas.<br><em>Commercial possibilities.</em></h2><p class="large reveal">We collaborate with the Centre for Impactful Entrepreneurs (CIE), connecting entrepreneurial development and incubation with commercial assessment, project preparation and investment structuring.</p><a class="text-link reveal" href="cie.html">Meet CIE {ARROW}</a></div><figure class="collab-media reveal-img" data-parallax>{img('entrepreneur', 'A young entrepreneur presenting a business plan to a mentor at an incubation hub')}</figure></section>'''
 shell('index', 'Chisi Capital Partners | Project Development & Investment Structuring', 'Project development, investment structuring and capital mobilisation across Zimbabwe and Africa.', home + cta())
 
 inner_ctas = {'about': ('Discuss an opportunity', 'contact.html'), 'services': ('Discuss a project', 'contact.html'), 'sectors': ('Submit a sector opportunity', 'contact.html'), 'approach': ('Start a conversation', 'contact.html')}
@@ -185,7 +185,7 @@ contact_body += f'''<div id="main-content"></div><section class="wrap contact-gr
 shell('contact', 'Contact Chisi Capital Partners | Discuss a Project', 'Discuss project development, investment structuring or a strategic partnership with Chisi Capital Partners.', contact_body)
 
 
-# ---------- CIE: sister organisation ----------
+# ---------- CIE page ----------
 cie_programmes = [
     ('Enterprise development', 'Identifying promising ideas and supporting early commercial concept development.'),
     ('Training & incubation', 'Building entrepreneurship capabilities through training, mentorship and incubation initiatives.'),
@@ -204,7 +204,7 @@ cie_focus = ['Manufacturing', 'Agro-processing', 'Mineral beneficiation', 'Packa
 programme_html = ''.join(f'<div class="pillar reveal"><h3>{t}</h3><p>{d}</p></div>' for t, d in cie_programmes)
 cie_process = ''.join(f'<div class="step" data-step><span class="step-dot" aria-hidden="true"></span><span class="number">0{i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(cie_steps, 1))
 focus_html = ''.join(f'<li class="reveal">{f}</li>' for f in cie_focus)
-cie_body = hero('cie', 'Our sister organisation', 'Turning promising ideas into <em>productive enterprises.</em>',
+cie_body = hero('cie', '', 'Turning promising ideas into <em>productive enterprises.</em>',
                 'The Centre for Impactful Entrepreneurs (CIE) mobilises entrepreneurial ideas, supports enterprise development and connects people with the knowledge, partnerships and opportunities needed to build commercially viable businesses in Zimbabwe.',
                 button('How CIE and Chisi work together', '#together', 'light') + button('Email CIE', 'mailto:info@cie.co.zw', 'ghost'), plain_strip)
 cie_body += f"""<div id="main-content"></div>
@@ -222,7 +222,7 @@ cie_body += f"""<div id="main-content"></div>
 <div class="role role-chisi reveal"><img class="role-logo" src="assets/logo-color.png" alt="Chisi Capital Partners" width="760" height="249" loading="lazy"><h3>Chisi Capital Partners</h3><ul><li>Commercial assessment</li><li>Project preparation</li><li>Investment structuring</li><li>Engagement with potential capital providers, where appropriate</li></ul></div></div>
 <p class="cie-contact reveal">Contact CIE directly at <a href="mailto:info@cie.co.zw">info@cie.co.zw</a>.</p><p class="note reveal">The two organisations have distinct mandates. Any referral from CIE to Chisi Capital Partners, or any next step, remains subject to assessment and applicable requirements.</p></div></section>"""
 cie_cta = '<section class="cta" data-cta><div class="cta-media" data-parallax>' + img('cie-cta', 'A founder presenting her product idea to fellow entrepreneurs', 'cta-img') + '</div><div class="wrap cta-inner"><p class="eyebrow light">Whether you are at idea stage or already operating</p><h2 class="split" data-split>Have a business idea<br><em>worth exploring?</em></h2>' + button('Email info@cie.co.zw', 'mailto:info@cie.co.zw', 'light') + '</div></section>'
-shell('cie', 'Centre for Impactful Entrepreneurs (CIE) | Chisi Capital Partners', 'CIE, the sister organisation of Chisi Capital Partners, mobilises entrepreneurial ideas and supports enterprise development and incubation in Zimbabwe.', cie_body + cie_cta)
+shell('cie', 'Centre for Impactful Entrepreneurs (CIE) | Chisi Capital Partners', 'The Centre for Impactful Entrepreneurs (CIE) mobilises entrepreneurial ideas and supports enterprise development and incubation in Zimbabwe.', cie_body + cie_cta)
 
 legal = {
     'privacy-policy': ('Privacy notice', 'This static website does not send form entries to Chisi Capital Partners. The enquiry form creates a text file locally in your browser only when you choose to download it. Entries are not saved by this website.', 'If you telephone us, share only the information needed to discuss your enquiry. For questions about information you share directly, contact Chisi Capital Partners on 077 358 8945. Hosting providers may process technical request data to deliver the website. Fonts are loaded from Google Fonts; your browser connects to Google to request the font stylesheet and font files. A fuller privacy policy must be established before online enquiry collection is enabled.'),
