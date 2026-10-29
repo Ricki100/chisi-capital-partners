@@ -371,3 +371,11 @@ body[data-page=cie] .cie-logo-panel{background:#fff;border:1px solid var(--line)
 body[data-page=cie] .role-cie{border-top:3px solid #580c19}
 body[data-page=cie] .role-chisi{border-top:3px solid #173d32}
 @media(max-width:640px){body[data-page=cie] .hero-shade{background:linear-gradient(0deg,rgba(46,6,14,.93) 0%,rgba(46,6,14,.72) 45%,rgba(46,6,14,.28) 100%)}}
+
+/* Email contacts */
+.footer-grid .footer-sub{margin:10px 0 2px;font-size:12px!important;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-light)!important}
+.mobile-contact a+a{display:block;font-size:16px;margin-top:6px;color:rgba(255,255,255,.8)}
+.contact-email{display:inline-block;margin-top:10px;font-size:clamp(16px,1.4vw,19px);font-weight:600;color:var(--forest);border-bottom:1px solid var(--brass);word-break:break-all}
+.cie-contact{margin:36px 0 0;font-size:17px;color:var(--forest-ink)}
+.cie-contact a{color:var(--forest);font-weight:700;border-bottom:1px solid var(--brass)}
+.footer-grid a[href^="mailto"]{word-break:break-all}
