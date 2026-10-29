@@ -382,3 +382,5 @@ body[data-page=cie] .role-chisi{border-top:3px solid #173d32}
 
 /* Line-reveal masks: leave room for descenders (g, p, y) and accents so nothing is clipped */
 h1 [class*="-mask"],h2 [class*="-mask"]{padding:.08em 0 .2em;margin:-.08em 0 -.2em}
+
+.footer-logo-cie{width:270px}
