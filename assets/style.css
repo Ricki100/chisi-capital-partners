@@ -351,3 +351,23 @@ textarea{resize:vertical}
   .role-link .arrow{transform:rotate(135deg)}
 }
 @media(max-width:640px){.pillars{grid-template-columns:1fr}.mv{grid-template-columns:1fr}}
+
+/* CIE page — CIE brand palette (maroon, gold, slate) */
+body[data-page=cie]{
+  --forest:#580c19;--forest-deep:#3a0811;--forest-ink:#3d1a20;
+  --brass:#b68344;--brass-light:#e0b273;--cream:#faf3ea;
+  --muted:#5f5a5c;--line:#eadfd8;--paper:#f8f1ea;
+}
+body[data-page=cie] .hero-shade{background:
+  linear-gradient(90deg,rgba(46,6,14,.9) 0%,rgba(46,6,14,.66) 38%,rgba(46,6,14,.14) 70%,rgba(46,6,14,0) 100%),
+  linear-gradient(0deg,rgba(46,6,14,.78) 0%,rgba(46,6,14,0) 38%)}
+body[data-page=cie] .header::before{background:linear-gradient(rgba(36,4,10,.55),transparent)}
+body[data-page=cie] .approach-band::before{background:linear-gradient(100deg,rgba(58,8,17,.96) 25%,rgba(58,8,17,.84) 60%,rgba(58,8,17,.62))}
+body[data-page=cie] .cta::before{background:linear-gradient(90deg,rgba(46,6,14,.92),rgba(46,6,14,.58) 55%,rgba(46,6,14,.22))}
+body[data-page=cie] .pillars,body[data-page=cie] .pillar{border-color:#e3d3c8}
+body[data-page=cie] .button.light:hover{border-color:var(--brass)}
+body[data-page=cie] .hero-brand{display:block;width:clamp(170px,16vw,240px);height:auto;margin-bottom:34px}
+body[data-page=cie] .cie-logo-panel{background:#fff;border:1px solid var(--line)}
+body[data-page=cie] .role-cie{border-top:3px solid #580c19}
+body[data-page=cie] .role-chisi{border-top:3px solid #173d32}
+@media(max-width:640px){body[data-page=cie] .hero-shade{background:linear-gradient(0deg,rgba(46,6,14,.93) 0%,rgba(46,6,14,.72) 45%,rgba(46,6,14,.28) 100%)}}
