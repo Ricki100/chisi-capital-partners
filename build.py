@@ -2,7 +2,7 @@ from pathlib import Path
 import zipfile, xml.etree.ElementTree as ET, html
 
 ROOT = Path(__file__).parent
-D = ROOT / 'dist'
+D = ROOT
 ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 with zipfile.ZipFile(next(ROOT.parent.glob('*.docx'))) as z:
     xml = ET.fromstring(z.read('word/document.xml'))
