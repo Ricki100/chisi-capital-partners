@@ -43,29 +43,82 @@
   addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); toggle.focus(); } });
   addEventListener('resize', () => { if (innerWidth > 960 && !menu.hidden) setMenu(false); });
 
-  /* ---------- Enquiry form: sends to info@chisicapitalpartners.co.zw via Web3Forms ---------- */
-  const form = document.querySelector('#enquiry-form');
-  form?.addEventListener('submit', async e => {
-    e.preventDefault();
-    const status = document.querySelector('#form-status');
-    const btn = form.querySelector('button[type="submit"]');
-    const label = btn.querySelector('.button-label');
-    const original = label.textContent;
-    btn.disabled = true; btn.setAttribute('aria-busy', 'true'); label.textContent = 'Sending…';
-    status.textContent = ''; status.className = '';
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.success) throw new Error(json.message || 'Request failed');
-      form.reset();
-      status.className = 'is-success';
-      status.textContent = 'Thank you. Your enquiry has been sent and our team will be in touch soon.';
-    } catch (err) {
-      status.className = 'is-error';
-      status.textContent = 'Your enquiry could not be sent. Please try again, email info@chisicapitalpartners.co.zw or call 077 358 8945.';
-    } finally {
-      btn.disabled = false; btn.removeAttribute('aria-busy'); label.textContent = original;
+  /* ---------- Forms: submitted by email via Web3Forms ----------
+     Works for any <form data-web3>. Optional multi-step panels ([data-step-panel]),
+     checkbox groups joined into one field ([data-join]) and a submission reference (data-ref). */
+  document.querySelectorAll('form[data-web3]').forEach(form => {
+    const panels = [...form.querySelectorAll('[data-step-panel]')];
+    const navItems = [...(form.parentElement.querySelector('[data-step-nav]')?.children || [])];
+    const status = form.querySelector('[role="status"]');
+    const fallback = form.dataset.fallback || 'info@chisicapitalpartners.co.zw';
+    let current = 0;
+
+    const fieldsIn = el => [...el.querySelectorAll('input:not([type="hidden"]):not(.form-trap), select, textarea')];
+    const validate = el => { for (const f of fieldsIn(el)) { if (!f.checkValidity()) { f.reportValidity(); f.focus(); return false; } } return true; };
+    const show = (i, focus = true) => {
+      current = i;
+      panels.forEach((p, j) => { p.hidden = j !== i; });
+      navItems.forEach((n, j) => { n.classList.toggle('is-current', j === i); n.classList.toggle('is-done', j < i); j === i ? n.setAttribute('aria-current', 'step') : n.removeAttribute('aria-current'); });
+      if (focus) {
+        const top = form.parentElement.getBoundingClientRect().top + scrollY - 110;
+        lenis ? lenis.scrollTo(top, { duration: .9 }) : scrollTo({ top, behavior: 'smooth' });
+        panels[i].querySelector('legend')?.focus({ preventScroll: true });
+      }
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    };
+    if (panels.length) {
+      show(0, false);
+      form.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => { if (validate(panels[current])) show(current + 1); }));
+      form.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', () => show(current - 1)));
+      // Enter in a text field moves to the next step instead of submitting early
+      form.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && current < panels.length - 1) { e.preventDefault(); if (validate(panels[current])) show(current + 1); }
+      });
     }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!validate(panels.length ? panels[current] : form)) return;
+      const data = new FormData(form);
+      form.querySelectorAll('[data-join]').forEach(g => {
+        const vals = [...g.querySelectorAll('input[type="checkbox"]:checked')].map(i => i.value);
+        data.set(g.dataset.join, vals.length ? vals.join(', ') : 'None selected');
+      });
+      let ref = '';
+      if (form.dataset.ref) {
+        const d = new Date(), pad = n => String(n).padStart(2, '0');
+        ref = `${form.dataset.ref}-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+        data.set('Submission reference', ref);
+        data.set('subject', `${form.dataset.subject || 'New submission'} (${ref})`);
+      }
+      const btn = form.querySelector('button[type="submit"]');
+      const label = btn.querySelector('.button-label');
+      const original = label.textContent;
+      btn.disabled = true; btn.setAttribute('aria-busy', 'true'); label.textContent = 'Sending…';
+      status.textContent = ''; status.className = 'form-status';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.success) throw new Error(json.message || 'Request failed');
+        form.reset();
+        const success = form.parentElement.querySelector('[data-success]');
+        if (success) {
+          form.hidden = true;
+          form.parentElement.querySelector('[data-step-nav]')?.setAttribute('hidden', '');
+          const out = success.querySelector('[data-ref-out]'); if (out) out.textContent = ref;
+          success.hidden = false; success.focus();
+          if (window.ScrollTrigger) ScrollTrigger.refresh();
+        } else {
+          status.className = 'form-status is-success';
+          status.textContent = 'Thank you. Your enquiry has been sent and our team will be in touch soon.';
+        }
+      } catch (err) {
+        status.className = 'form-status is-error';
+        status.textContent = `Your submission could not be sent. Please try again, or email ${fallback}.`;
+      } finally {
+        btn.disabled = false; btn.removeAttribute('aria-busy'); label.textContent = original;
+      }
+    });
   });
 
   /* ---------- Motion ---------- */
