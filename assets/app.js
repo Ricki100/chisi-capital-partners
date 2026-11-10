@@ -43,16 +43,29 @@
   addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); toggle.focus(); } });
   addEventListener('resize', () => { if (innerWidth > 960 && !menu.hidden) setMenu(false); });
 
-  /* ---------- Enquiry form (local brief only) ---------- */
+  /* ---------- Enquiry form: sends to info@chisicapitalpartners.co.zw via Web3Forms ---------- */
   const form = document.querySelector('#enquiry-form');
-  form?.addEventListener('submit', e => {
+  form?.addEventListener('submit', async e => {
     e.preventDefault();
-    const data = new FormData(form);
-    const brief = 'CHISI CAPITAL PARTNERS — ENQUIRY BRIEF\n\n' + [...data].map(([k, v]) => `${k}: ${v}`).join('\n\n');
-    const url = URL.createObjectURL(new Blob([brief], { type: 'text/plain;charset=utf-8' }));
-    const a = Object.assign(document.createElement('a'), { href: url, download: 'chisi-project-enquiry.txt' });
-    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-    document.querySelector('#form-status').textContent = 'Your brief has been prepared for download. Nothing has been sent. Call 077 358 8945 to discuss your opportunity.';
+    const status = document.querySelector('#form-status');
+    const btn = form.querySelector('button[type="submit"]');
+    const label = btn.querySelector('.button-label');
+    const original = label.textContent;
+    btn.disabled = true; btn.setAttribute('aria-busy', 'true'); label.textContent = 'Sending…';
+    status.textContent = ''; status.className = '';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.message || 'Request failed');
+      form.reset();
+      status.className = 'is-success';
+      status.textContent = 'Thank you. Your enquiry has been sent and our team will be in touch soon.';
+    } catch (err) {
+      status.className = 'is-error';
+      status.textContent = 'Your enquiry could not be sent. Please try again, email info@chisicapitalpartners.co.zw or call 077 358 8945.';
+    } finally {
+      btn.disabled = false; btn.removeAttribute('aria-busy'); label.textContent = original;
+    }
   });
 
   /* ---------- Motion ---------- */

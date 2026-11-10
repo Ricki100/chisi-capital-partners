@@ -384,3 +384,11 @@ body[data-page=cie] .role-chisi{border-top:3px solid #0a2a47}
 h1 [class*="-mask"],h2 [class*="-mask"]{padding:.08em 0 .2em;margin:-.08em 0 -.2em}
 
 .footer-logo-cie{width:270px}
+
+/* Enquiry form states */
+.form-trap{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+#enquiry-form{position:relative}
+#enquiry-form button[disabled]{opacity:.7;cursor:wait}
+#form-status{font-size:15px;margin-top:18px;padding:0}
+#form-status.is-success{padding:16px 20px;background:#eef6f0;border-left:2px solid #2f7d4f;color:#1d4d31}
+#form-status.is-error{padding:16px 20px;background:#fbefee;border-left:2px solid #b3261e;color:#7a1a14}
